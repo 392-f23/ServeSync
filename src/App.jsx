@@ -1,25 +1,36 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Tab1 from './components/Tab1';
-import Tab2 from './components/Tab2';
-import Tab3 from './components/Tab3';
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CustomNavbar from "./components/NavBar";
+import Events from "./components/Events";
+import Add from "./components/Add";
+import Profile from "./components/Profile";
+import LoginPage from "./components/LoginPage"
+import data from "./sampledata.json";
+import { useDbData, useAuthState } from "./utilities/firebase";
 const App = () => {
+  //  const [data, error] = useDbData("/");
+  //   const [user] = useAuthState();
+  //   if (error) return <h1>Error loading data: {`${error}`}</h1>;
+  //   if (data === undefined) return <h1>Loading data...</h1>;
+  //   if (!data) return <h1>No user data found</h1>;
+  const [ user ] = useAuthState();
+
+  if(!user){
+    return <LoginPage />;
+  }
+
   return (
-      <Router>
-          <NavBar />
-          <div className='pt-28'>
-          <Routes>
-              <Route path="/" element={<Tab1 />} />
-              <Route path="/tab2" element={<Tab2 />} />
-              <Route path="/tab3" element={<Tab3 />} />
-          </Routes>
-          </div>
-          
-          
-      </Router>
+    <Router>
+      <CustomNavbar />
+      <div className="text-center">
+        <Routes>
+          <Route path="/" element={<Events events={data} />} />
+          <Route path="/Add" element={<Add />} />
+          <Route path="/Profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
