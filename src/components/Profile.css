@@ -1,63 +1,75 @@
-.container1 {
-  display: grid;
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90vh;
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.profile-header, footer {
   text-align: center;
-  justify-content: center;
-  margin-top: 5rem;
-  background-color: #f4f4f4; /* Or use a URL for a background image */
-  padding: 2rem;
-}
-
-.rounded-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background: linear-gradient(to bottom, rgb(69, 108, 159), rgb(104, 186, 211));
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-  margin-top: 2rem;
-}
-
-.rounded-button:hover {
-  background-color: rgb(70, 85, 150);
-  transform: translateY(-3px);
-}
-
-.circle_profile_photo {
-  display: block;
-  margin: 0 auto;
-  width: 150px; /* Adjust as needed */
-  height: 150px; /* Adjust as needed */
-  border-radius: 50%;
-  border: 3px solid #ddd; /* Optional */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-}
-
-.circle_profile_photo:hover {
-  transform: scale(1.05);
+  padding: 1rem;
+  background-color: #eee;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
+  margin: 2rem 0;
 }
 
-.profile-info h2, .profile-info p {
+.profile-photo-wrapper {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
+  background-color: #ddd;
+}
+
+.circle_profile_photo {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+.circle_profile_photo:hover {
+  transform: scale(1.1);
+}
+
+.user-name {
+  font-size: 1.5rem;
   margin: 0.5rem 0;
-  font-family: 'Open Sans', sans-serif; /* Example font */
 }
 
-.main-title {
-  font-size: 2rem;
-  color: #333;
+.user-email {
+  margin-bottom: 2rem;
 }
+
+.signout-button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.signout-button:hover {
+  background-color: #444;
+  transform: translateY(-3px);
+}
+
+.activity-section {
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Other styles as needed */
