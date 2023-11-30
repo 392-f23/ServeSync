@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './Event.css';
+import LoginPage from './LoginPage';
+import { useDbUpdate } from '../utilities/firebase';
+import { v4 as uuidv4 } from 'uuid'; 
 
 const EventDetails = ({ event }) => (
   <div>
@@ -27,12 +30,25 @@ const CommentBox = ({ comment, setComment, handleCommentSubmit }) => (
   </div>
 );
 
-const Event = ({ event }) => {
+const Event = ({ event , user }) => {
   const [isCommentBoxVisible, setIsCommentBoxVisible] = useState(false);
   const [comment, setComment] = useState('');
+  const commentID = uuidv4();
+  const [updateComments, updateResult] = useDbUpdate(`/events/${event.id}/comments/${commentID}`);
+  if(user){
+    console.log(user.uid);
+  }
+  
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
+    const newComment = {
+      author: user.uid,
+      text: comment,
+    };
+
+    updateComments(newComment);
+
     setComment('');
   };
 

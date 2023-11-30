@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./Add.css";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { database, useDbUpdate } from '../utilities/firebase';
+import { database, useDbUpdate, useAuthState } from '../utilities/firebase';
 import { v4 as uuidv4 } from 'uuid'; 
 
-function Add() {
+function Add({user}) {
   const [eventData, setEventData] = useState({
     title: "",
     location: "",
@@ -16,11 +16,13 @@ function Add() {
     contactName: "",
     contactEmail: "",
     contactPhone: "",
+    comments: [],
+    authorID: ""
   });
   const [error, setError] = useState('');
   const eventId = uuidv4();
   const [updateEvents, updateResult] = useDbUpdate(`/events/${eventId}`);
-
+  const [userData] = useAuthState(); 
   const handleChange = (e) => {
     setEventData({ ...eventData, [e.target.name]: e.target.value });
   };
@@ -57,16 +59,19 @@ function Add() {
     const endTime = formatTime(eventData.endtime);
     const timeRangeString = `${startTime} - ${endTime}`;
     const eventObject = {
+        id: eventId,
         title: eventData.title,
         location: eventData.location,
         time: timeRangeString,
         date: eventData.date.toISOString().split('T')[0],
-        description: '',
+        description: eventData.description,
         contact: {
           name: eventData.contactName,
-          email: eventData.contactEmail,
+          email: userData.email,
           phone: eventData.contactPhone
-        }
+        },
+        comments: {"0": ""},
+        authorID: user.uid
     };
     console.log(eventObject);
 
@@ -74,6 +79,7 @@ function Add() {
       //await db.collection("events").add(eventObject);
       await updateEvents(eventObject);
       console.log(eventObject);
+      // NAVIGATE BACK TO HOME
     } catch (error) {
       console.error("Error adding event: ", error);
     }

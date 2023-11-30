@@ -23,8 +23,8 @@ const App = () => {
       <CustomNavbar />
       <div className="text-center">
         <Routes>
-          <Route path="/" element={<Events events={data} />} />
-          <Route path="/Add" element={<Add />} />
+          <Route path="/" element={<Events events={data} user={user}/>} />
+          <Route path="/Add" element={<Add user={user} />} />
           <Route path="/Profile" element={<Profile />} />
         </Routes>
       </div>
