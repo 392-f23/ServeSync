@@ -25,6 +25,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+export const database = getDatabase(firebase);
+export const auth = getAuth(firebase);
 
 export const useDbData = (path) => {
   const [data, setData] = useState();
@@ -55,17 +57,6 @@ export const useDbUpdate = (path) => {
   }, [database, path]);
 
   return [updateData, result];
-};
-
-export const useRoutineInsert = () => {
-  const [result, setResult] = useState();
-  const insertData = useCallback((value) => {
-    update(ref(database, path), value)
-    .then(() => setResult(makeResult()))
-    .catch((error) => setResult(makeResult(error)));
-  }, [database, path]);
-
-  return [insertData, result];
 };
 
 export const signInWithGoogle = () => {

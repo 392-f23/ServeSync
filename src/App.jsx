@@ -5,15 +5,14 @@ import Events from "./components/Events";
 import Add from "./components/Add";
 import Profile from "./components/Profile";
 import LoginPage from "./components/LoginPage"
-import data from "./sampledata.json";
 import { useDbData, useAuthState } from "./utilities/firebase";
+
 const App = () => {
-  //  const [data, error] = useDbData("/");
-  //   const [user] = useAuthState();
-  //   if (error) return <h1>Error loading data: {`${error}`}</h1>;
-  //   if (data === undefined) return <h1>Loading data...</h1>;
-  //   if (!data) return <h1>No user data found</h1>;
-  const [ user ] = useAuthState();
+   const [data, error] = useDbData("/");
+    const [user] = useAuthState();
+    if (error) return <h1>Error loading data: {`${error}`}</h1>;
+    if (data === undefined) return <h1>Loading data...</h1>;
+    if (!data) return <h1>No user data found</h1>;
 
   if(!user){
     return <LoginPage />;
