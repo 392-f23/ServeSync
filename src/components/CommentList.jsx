@@ -14,6 +14,13 @@ function CommentList() {
     }
   }, [userData, eventsData]);
 
+  console.log(userEvents);
+  userEvents.map(event => {
+    Object.values(event.comments).forEach(value =>{
+      if (value)
+      console.log(value);
+    });
+  });
   return (
     <div>
       {userEvents.length > 0 ? (
@@ -25,10 +32,8 @@ function CommentList() {
             {/* Display comments for each event */}
             <div>
               <strong>Comments:</strong>
-              {event.comments && event.comments.length > 0 ? (
-                event.comments.map((comment, index) => (
-                  <p key={index}>{comment || 'No comment provided'}</p>
-                ))
+              {event.comments && Object.entries(event.comments).length > 0 ? (
+                Object.entries(event.comments).map(([key,value]) => {return(<p key={key}>{value.text}</p>)})
               ) : (
                 <p>No comments available.</p>
               )}
